@@ -1,0 +1,34 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python test/cache
+.pytest_cache/
+.coverage
+
+# Vector databases / generated data
+chroma_db/
+faiss_index/
+*.index
+
+# Logs
+*.log
