@@ -1033,3 +1033,280 @@ body {
   color: #64748b;
   font-size: 12px;
 }
+/* =========================
+   Dynamic Dashboard
+   ========================= */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: dashboard-spin 1s linear infinite;
+}
+
+@keyframes dashboard-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stat-title {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stat-description {
+  display: block;
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-panel {
+  margin-bottom: 20px;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+}
+
+.error-panel strong {
+  color: #991b1b;
+}
+
+.error-panel p {
+  color: #7f1d1d;
+  font-size: 13px;
+  margin: 8px 0 15px;
+}
+
+.badge.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Automation */
+
+.automation-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.automation-summary-item {
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #f8fafc;
+}
+
+.automation-summary-item span {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+
+.automation-summary-item strong {
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.automation-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 13px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+}
+
+.automation-status .status-dot {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.automation-status strong {
+  display: block;
+  font-size: 12px;
+  color: #166534;
+}
+
+.automation-status span {
+  display: block;
+  margin-top: 4px;
+  color: #4b5563;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Workflow */
+
+.dashboard-workflow {
+  margin-top: 20px;
+}
+
+.workflow-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 20px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.workflow-card {
+  min-width: 190px;
+  flex: 1;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.workflow-number {
+  font-size: 11px;
+  color: #2563eb;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.workflow-card strong {
+  display: block;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.workflow-card span {
+  display: block;
+  margin-top: 7px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.workflow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 20px;
+}
+
+/* System Status */
+
+.system-status-panel {
+  margin-top: 20px;
+}
+
+.system-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.system-status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.system-status-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.system-status-item strong {
+  display: block;
+  font-size: 12px;
+}
+
+.system-status-item span:not(.system-status-indicator) {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 10px;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+  .system-status-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .automation-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .system-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow-arrow {
+    display: none;
+  }
+
+  .workflow-grid {
+    flex-direction: column;
+  }
+}
