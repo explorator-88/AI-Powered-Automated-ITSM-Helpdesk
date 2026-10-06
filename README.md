@@ -1,4 +1,5 @@
 AI-Powered Intelligent ITSM Helpdesk
+
 An AI-powered IT helpdesk prototype built for the Sorim Technologies hackathon.
 The project combines React, FastAPI, RAG, FAISS, MongoDB Atlas and a ServiceNow integration layer to demonstrate how common IT support requests can be understood, answered and automated.
 What problem does it solve?
@@ -114,15 +115,19 @@ Example Scenarios
 Scenario 1 — VPN Issue
 Employee reports a VPN authentication problem.
 The system identifies the incident, finds relevant knowledge and creates the corresponding ITSM incident.
+
 Scenario 2 — Account Locked
 Employee reports that their account is locked.
 The system identifies the approved account-unlock workflow, executes the controlled action and records the result.
+
 Scenario 3 — Upload New Knowledge
 An IT administrator uploads a troubleshooting PDF.
 The system processes the document and adds it to the searchable knowledge base.
+
 Scenario 4 — Employee Question
 An employee asks a troubleshooting question.
 The AI searches the approved knowledge and provides an answer with its source.
+
 Scenario 5 — Software Request
 An employee requests approved software.
 The request goes through the software catalogue and provisioning workflow.
