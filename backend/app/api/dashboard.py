@@ -14,6 +14,7 @@ router = APIRouter(
 
 @router.get("/stats")
 def get_dashboard_stats():
+
     total_tickets = tickets_collection.count_documents({})
 
     open_tickets = tickets_collection.count_documents({
@@ -30,6 +31,7 @@ def get_dashboard_stats():
 
     software_requests = software_collection.count_documents({})
 
+    # Successful controlled self-healing automations
     successful_automations = automation_collection.count_documents({
         "status": "success"
     })
@@ -37,7 +39,9 @@ def get_dashboard_stats():
     total_automations = automation_collection.count_documents({})
 
     automation_success_rate = (
-        round((successful_automations / total_automations) * 100)
+        round(
+            (successful_automations / total_automations) * 100
+        )
         if total_automations > 0
         else 0
     )
@@ -48,6 +52,10 @@ def get_dashboard_stats():
         "resolved_tickets": resolved_tickets,
         "escalated_tickets": escalated_tickets,
         "software_requests": software_requests,
+
+        # AI/self-healing resolution metric
+        "ai_resolved": successful_automations,
+
         "successful_automations": successful_automations,
         "total_automations": total_automations,
         "automation_success_rate": automation_success_rate,

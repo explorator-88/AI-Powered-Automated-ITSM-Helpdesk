@@ -20,6 +20,17 @@ class ChatRequest(BaseModel):
 @router.post("")
 def chat(request: ChatRequest):
 
+    if not request.message.strip():
+        return {
+            "message": request.message,
+            "answer": (
+                "Please enter a question about the "
+                "knowledge base."
+            ),
+            "sources": [],
+            "confidence": 0.0,
+        }
+
     result = rag_service.ask(
         request.message
     )

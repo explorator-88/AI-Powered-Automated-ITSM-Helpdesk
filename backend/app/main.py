@@ -5,6 +5,7 @@ from app.api.dashboard import router as dashboard_router
 from app.api.provisioning import router as provisioning_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.api.knowledge import router as knowledge_router
 
 from app.api.test_db import router as test_db_router
 
@@ -19,6 +20,10 @@ app.include_router(automation_router, prefix="/api")
 app.include_router(provisioning_router, prefix="/api")
 app.include_router(dashboard_router, prefix="/api")
 
+app.include_router(
+    knowledge_router,
+    prefix="/api"
+)
 app.include_router(
     chatbot_router,
     prefix="/api"

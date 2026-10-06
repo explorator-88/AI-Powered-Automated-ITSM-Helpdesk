@@ -7,6 +7,9 @@ pydantic
 pydantic-settings
 pyyaml
 
+python-multipart
+pypdf
+
 sentence-transformers
 faiss-cpu
 transformers

@@ -28,44 +28,93 @@ class KnowledgeRetriever:
             )
 
         print("Loading FAISS index...")
-        self.index = faiss.read_index(str(INDEX_FILE))
+
+        self.index = faiss.read_index(
+            str(INDEX_FILE)
+        )
 
         print("Loading document metadata...")
+
         self.documents = json.loads(
-            METADATA_FILE.read_text(encoding="utf-8")
+            METADATA_FILE.read_text(
+                encoding="utf-8"
+            )
         )
 
         print("Loading embedding model...")
-        self.model = SentenceTransformer(MODEL_NAME)
+
+        self.model = SentenceTransformer(
+            MODEL_NAME
+        )
+
+        self.index_modified_time = INDEX_FILE.stat().st_mtime
 
         print(
             f"Retriever ready. Indexed documents: "
             f"{self.index.ntotal}"
         )
 
+    def reload_if_needed(self):
+
+        current_modified_time = INDEX_FILE.stat().st_mtime
+
+        if current_modified_time <= self.index_modified_time:
+            return
+
+        print(
+            "Knowledge index changed. Reloading FAISS index..."
+        )
+
+        self.index = faiss.read_index(
+            str(INDEX_FILE)
+        )
+
+        self.documents = json.loads(
+            METADATA_FILE.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        self.index_modified_time = current_modified_time
+
+        print(
+            f"Retriever reloaded. Indexed documents: "
+            f"{self.index.ntotal}"
+        )
+
     def search(
         self,
         query: str,
-        top_k: int = 3
+        top_k: int = 5
     ) -> list[dict]:
 
         if not query.strip():
             return []
 
+        self.reload_if_needed()
+
         query_embedding = self.model.encode(
             [query],
             convert_to_numpy=True,
-            normalize_embeddings=True
+            normalize_embeddings=True,
+        )
+
+        search_count = min(
+            top_k,
+            self.index.ntotal
         )
 
         scores, indices = self.index.search(
             query_embedding,
-            min(top_k, self.index.ntotal)
+            search_count
         )
 
         results = []
 
-        for score, index in zip(scores[0], indices[0]):
+        for score, index in zip(
+            scores[0],
+            indices[0]
+        ):
 
             if index < 0:
                 continue
@@ -83,37 +132,3 @@ class KnowledgeRetriever:
             )
 
         return results
-
-
-if __name__ == "__main__":
-
-    retriever = KnowledgeRetriever()
-
-    results = retriever.search(
-        "My VPN authentication keeps failing",
-        top_k=3
-    )
-
-    for result in results:
-
-        metadata = result["metadata"]
-
-        print(
-            f"\nScore: {result['score']:.4f}"
-        )
-
-        print(
-            f"Article: "
-            f"{metadata.get('article_id')} - "
-            f"{metadata.get('title')}"
-        )
-
-        print(
-            f"Category: "
-            f"{metadata.get('category')} / "
-            f"{metadata.get('subcategory')}"
-        )
-
-        print(
-            f"Source: {result['source_file']}"
-        )

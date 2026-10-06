@@ -7,7 +7,6 @@ import {
   Zap,
   RefreshCw,
 } from "lucide-react";
-
 import api from "../services/api";
 
 export default function Dashboard() {
@@ -49,7 +48,7 @@ export default function Dashboard() {
     },
     {
       title: "AI Resolved",
-      value: stats?.resolved_tickets ?? 0,
+      value: stats?.ai_resolved ?? 0,
       icon: CheckCircle,
       description: "Successfully resolved",
     },
@@ -175,7 +174,7 @@ export default function Dashboard() {
             </div>
 
             <span className="badge success">
-              {loading ? "—" : stats?.resolved_tickets ?? 0}
+              {loading ? "—" : stats?.ai_resolved ?? 0}
             </span>
           </div>
 
@@ -205,6 +204,7 @@ export default function Dashboard() {
           <div className="automation-summary">
             <div className="automation-summary-item">
               <span>Total Automations</span>
+
               <strong>
                 {loading ? "—" : stats?.total_automations ?? 0}
               </strong>
@@ -212,6 +212,7 @@ export default function Dashboard() {
 
             <div className="automation-summary-item">
               <span>Successful</span>
+
               <strong>
                 {loading ? "—" : stats?.successful_automations ?? 0}
               </strong>
@@ -219,6 +220,7 @@ export default function Dashboard() {
 
             <div className="automation-summary-item">
               <span>Success Rate</span>
+
               <strong>
                 {loading
                   ? "—"
@@ -255,7 +257,9 @@ export default function Dashboard() {
         <div className="workflow-grid">
           <div className="workflow-card">
             <div className="workflow-number">01</div>
+
             <strong>Employee Request</strong>
+
             <span>
               Employee submits a question, incident, access request, or
               software request.
@@ -266,7 +270,9 @@ export default function Dashboard() {
 
           <div className="workflow-card">
             <div className="workflow-number">02</div>
+
             <strong>AI Analysis</strong>
+
             <span>
               Intent, category, priority, assignment group, and confidence
               are determined.
@@ -277,7 +283,9 @@ export default function Dashboard() {
 
           <div className="workflow-card">
             <div className="workflow-number">03</div>
+
             <strong>RAG / Automation</strong>
+
             <span>
               Approved knowledge is retrieved or a controlled automation
               workflow is selected.
@@ -288,7 +296,9 @@ export default function Dashboard() {
 
           <div className="workflow-card">
             <div className="workflow-number">04</div>
+
             <strong>ITSM Action</strong>
+
             <span>
               MongoDB records the workflow and ServiceNow receives the
               incident or request.
@@ -311,6 +321,7 @@ export default function Dashboard() {
         <div className="system-status-grid">
           <div className="system-status-item">
             <span className="system-status-indicator"></span>
+
             <div>
               <strong>FastAPI Backend</strong>
               <span>Connected</span>
@@ -319,6 +330,7 @@ export default function Dashboard() {
 
           <div className="system-status-item">
             <span className="system-status-indicator"></span>
+
             <div>
               <strong>MongoDB Atlas</strong>
               <span>Connected</span>
@@ -327,6 +339,7 @@ export default function Dashboard() {
 
           <div className="system-status-item">
             <span className="system-status-indicator"></span>
+
             <div>
               <strong>RAG Knowledge Base</strong>
               <span>FAISS / Active</span>
@@ -335,6 +348,7 @@ export default function Dashboard() {
 
           <div className="system-status-item">
             <span className="system-status-indicator"></span>
+
             <div>
               <strong>ServiceNow</strong>
               <span>Mock API / Active</span>
